@@ -135,7 +135,7 @@ def get_scoreboard(user, contest):
 
     scoreboard = Scoreboard(contest.start_time)
     # Store contest's problem data
-    for problem in contest.problem.all():
+    for problem in contest.problems:
         total_testcases = get_total_testcases(problem);
         new_problem = ScoreboardProblem(problem.id,problem.pname,total_testcases)
         new_problem.no_submission = True
@@ -144,7 +144,7 @@ def get_scoreboard(user, contest):
     # For Contestants' data
     for contestant in contestants:
         new_contestant = ScoreboardUser(contestant.user.username)
-        for problem in contest.problem.all():
+        for problem in contest.problems:
             if(is_ended(contest) or has_contest_ownership(user, contest)):
                 submissions = get_contestant_problem_submission_list(contest,contestant,problem)
             else:
