@@ -72,7 +72,6 @@ from utils import user_info
 from utils.render_helper import render_index, get_current_page
 from utils.rejudge import rejudge as rejudge_obj
 from utils.rejudge import rejudge_contest_problem
-from status.views import *
 from django.conf import settings
 from utils.user_info import validate_user
 

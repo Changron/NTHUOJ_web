@@ -35,7 +35,6 @@ from django.core.urlresolvers import reverse
 
 from contest.models import Contest
 from contest.contest_info import get_running_contests
-from contest.contest_info import get_freeze_time_datetime
 from contest.contest_info import get_contest_submissions
 from problem.models import Submission, Problem
 from status.templatetags.status_filters import show_detail, can_rejudge
@@ -105,18 +104,6 @@ def status(request):
     render_data['submissions'] = submissions
 
     return render_index(request, 'status/status.html', render_data)
-
-
-def contest_status(request, contest):
-    """Return a status table of given contest"""
-    submissions = get_visible_submission(request.user)
-    submissions = get_contest_submissions(contest, submissions)
-
-    submissions = regroup_submission(submissions)
-    table_content = str(render(request, 'status/statusTable.html', {'submissions': submissions}))
-    # remove rendered response header
-    table_content = re.sub('Content-Type: text/html; charset=utf-8', '', table_content)
-    return table_content
 
 
 @login_required()
